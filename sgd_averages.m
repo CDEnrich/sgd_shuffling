@@ -102,7 +102,6 @@ mean_MSE_SGD_RR_approx = mean(MSE_SGD_RR_approx)
 std_MSE_SGD_RR_approx = std(MSE_SGD_RR_approx)/sqrt(runs)
 
 %SGD_SO
-%MSE_SGD_SO = zeros(1,runs);
 cycles_per_perm = 150000/n;
 MSE_SGD_SO = zeros(1,runs*niter/(n*cycles_per_perm));
 for r=1:runs
@@ -121,19 +120,14 @@ for r=1:runs
     end
     iterates_centered_SGD_SO = iterates_SGD_SO-xsol;
     iterates_dist_SGD_SO = vecnorm(iterates_centered_SGD_SO);
-    %MSE_SGD_SO_r = 0;
     for i=1:(niter/(n*cycles_per_perm))
-        %MSE_SGD_SO_r = MSE_SGD_SO_r + mean(iterates_dist_SGD_SO(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
         MSE_SGD_SO((r-1)*niter/(n*cycles_per_perm)+i) = mean(iterates_dist_SGD_SO(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
     end
-    %MSE_SGD_SO(r) = MSE_SGD_SO_r/(niter/(n*cycles_per_perm));
 end
 mean_MSE_SGD_SO = mean(MSE_SGD_SO)
-%std_MSE_SGD_SO = std(MSE_SGD_SO)/sqrt(runs)
 std_MSE_SGD_SO = std(MSE_SGD_SO)/sqrt(runs*niter/(n*cycles_per_perm))
 
 %SGD_SO_approx
-%MSE_SGD_SO_approx = zeros(1,runs);
 MSE_SGD_SO_approx = zeros(1,runs*niter/(n*cycles_per_perm));
 for r=1:runs
     iterates_SGD_SO_approx = zeros(d,niter+1);
@@ -151,15 +145,11 @@ for r=1:runs
     end
     iterates_centered_SGD_SO_approx = iterates_SGD_SO_approx-xsol;
     iterates_dist_SGD_SO_approx = vecnorm(iterates_centered_SGD_SO_approx);
-    %MSE_SGD_SO_approx_r = 0;
     for i=1:(niter/(n*cycles_per_perm))
-        %MSE_SGD_SO_approx_r = MSE_SGD_SO_approx_r + mean(iterates_dist_SGD_SO_approx(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
         MSE_SGD_SO_approx((r-1)*niter/(n*cycles_per_perm)+i) = mean(iterates_dist_SGD_SO_approx(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
     end
-    %MSE_SGD_SO_approx(r) = MSE_SGD_SO_approx_r/(niter/(n*cycles_per_perm));
 end
 mean_MSE_SGD_SO_approx = mean(MSE_SGD_SO_approx)
-%std_MSE_SGD_SO_approx = std(MSE_SGD_SO_approx)/sqrt(runs)
 std_MSE_SGD_SO_approx = std(MSE_SGD_SO_approx)/sqrt(runs*niter/(n*cycles_per_perm))
 
 %variance_A

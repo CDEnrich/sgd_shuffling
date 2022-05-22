@@ -111,7 +111,6 @@ std_MSE_SGDM_RR_approx = std(MSE_SGDM_RR_approx)/sqrt(runs)
 
 %SGDM_SO
 cycles_per_perm = 150000/n;
-%MSE_SGDM_SO = zeros(1,runs);
 MSE_SGDM_SO = zeros(1,runs*niter/(n*cycles_per_perm));
 for r=1:runs
     iterates_SGDM_SO = zeros(d,niter+1);
@@ -131,19 +130,14 @@ for r=1:runs
     end
     iterates_centered_SGDM_SO = iterates_SGDM_SO-xsol;
     iterates_dist_SGDM_SO = vecnorm(iterates_centered_SGDM_SO);
-    %MSE_SGDM_SO_r = 0;
     for i=1:(niter/(n*cycles_per_perm))
-        %MSE_SGDM_SO_r = MSE_SGDM_SO_r + mean(iterates_dist_SGDM_SO(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
         MSE_SGDM_SO((r-1)*niter/(n*cycles_per_perm)+i) = mean(iterates_dist_SGDM_SO(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
     end
-    %MSE_SGDM_SO(r) = MSE_SGDM_SO_r/(niter/(n*cycles_per_perm));
 end
 mean_MSE_SGDM_SO = mean(MSE_SGDM_SO)
-%std_MSE_SGDM_SO = std(MSE_SGDM_SO)/sqrt(runs)
 std_MSE_SGDM_SO = std(MSE_SGDM_SO)/sqrt(runs*niter/(n*cycles_per_perm))
 
 %SGDM_SO_approx
-%MSE_SGDM_SO_approx = zeros(1,runs);
 MSE_SGDM_SO_approx = zeros(1,runs*niter/(n*cycles_per_perm));
 for r=1:runs
     iterates_SGDM_SO_approx = zeros(d,niter+1);
@@ -163,12 +157,9 @@ for r=1:runs
     end
     iterates_centered_SGDM_SO_approx = iterates_SGDM_SO_approx-xsol;
     iterates_dist_SGDM_SO_approx = vecnorm(iterates_centered_SGDM_SO_approx);
-    %MSE_SGDM_SO_approx_r = 0;
     for i=1:(niter/(n*cycles_per_perm))
-        %MSE_SGDM_SO_approx_r = MSE_SGDM_SO_approx_r + mean(iterates_dist_SGDM_SO_approx(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
         MSE_SGDM_SO_approx((r-1)*niter/(n*cycles_per_perm)+i) = mean(iterates_dist_SGDM_SO_approx(((i-1)*n*cycles_per_perm + mean_first):(i*n*cycles_per_perm)).^2);
     end
-    %MSE_SGDM_SO_approx(r) = MSE_SGDM_SO_approx_r/(niter/(n*cycles_per_perm));
 end
 mean_MSE_SGDM_SO_approx = mean(MSE_SGDM_SO_approx)
 std_MSE_SGDM_SO_approx = std(MSE_SGDM_SO_approx)/sqrt(runs*niter/(n*cycles_per_perm))
